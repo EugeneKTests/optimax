@@ -13,8 +13,8 @@ public class BidderTest {
         Auction auction = new Auction(new SimpleBidder(), new SimpleBidder());
         auction.init(100, 1000);
         BidHistoryRecord historyRecord = auction.playOneRound();
-        Assertions.assertEquals(20, historyRecord.getOwnBid());
-        Assertions.assertEquals(20, historyRecord.getOtherBid());
+        Assertions.assertEquals(20, historyRecord.ownBid());
+        Assertions.assertEquals(20, historyRecord.otherBid());
     }
 
     @Test
@@ -25,8 +25,8 @@ public class BidderTest {
         int totalBid2 = 0;
         while (!auction.isFinished()) {
             BidHistoryRecord historyRecord = auction.playOneRound();
-            totalBid1 += historyRecord.getOwnBid();
-            totalBid2 += historyRecord.getOtherBid();
+            totalBid1 += historyRecord.ownBid();
+            totalBid2 += historyRecord.otherBid();
         }
         Assertions.assertEquals(10000, totalBid1);
         Assertions.assertEquals(10000, totalBid2);

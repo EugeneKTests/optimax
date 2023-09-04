@@ -3,6 +3,10 @@ package optimax;
 import optimax.bidder.BidHistoryRecord;
 import optimax.bidder.Bidder;
 
+/**
+ * Auction between 2 bidder {@link Bidder}
+ * Counts quantity units and determines winner
+ */
 public class Auction {
 
     private final Bidder bidder1;
@@ -16,6 +20,13 @@ public class Auction {
         this.bidder2 = bidder2;
     }
 
+    /**
+     * Inits auction with cash and quantity units
+     * Also inits both bidders
+     *
+     * @param quantity quantity units
+     * @param cash monetary units
+     */
     public void init(int quantity, int cash) {
         bidder1.init(quantity, cash);
         bidder2.init(quantity, cash);
@@ -23,6 +34,13 @@ public class Auction {
         bidder1QuantityUnits = bidder2QuantityUnits = 0;
     }
 
+    /**
+     * Plays 1 round of auction
+     * then determines the winner and count quantity units
+     *
+     * @return {@link BidHistoryRecord}
+     *
+     */
     public BidHistoryRecord playOneRound() {
         if (isFinished()) {
             return null;
@@ -36,12 +54,21 @@ public class Auction {
         return new BidHistoryRecord(bid1, bid2);
     }
 
+
+
+    /**
+     * Plays until quantity units is fully auctioned.
+     */
     public void playTillEnd() {
         while (!isFinished()) {
             playOneRound();
         }
     }
 
+    /**
+     * Determines the winner after round is played
+     * increases bidder quantity units
+     */
     private void determineWinner(int bid1, int bid2) {
         if (bid1 == bid2) {
             bidder1QuantityUnits += 1;
@@ -61,15 +88,8 @@ public class Auction {
         return bidder1QuantityUnits;
     }
 
-    public void setBidder1QuantityUnits(int bidder1QuantityUnits) {
-        this.bidder1QuantityUnits = bidder1QuantityUnits;
-    }
-
     public int getBidder2QuantityUnits() {
         return bidder2QuantityUnits;
     }
 
-    public void setBidder2QuantityUnits(int bidder2QuantityUnits) {
-        this.bidder2QuantityUnits = bidder2QuantityUnits;
-    }
 }

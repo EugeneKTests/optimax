@@ -2,6 +2,10 @@ package optimax.bidder;
 
 import java.util.Random;
 
+/**
+ * Adds some random zeros with {@link #zeroProbability} probability to {@link OverAverageBidder} behaviour
+ * which makes it less predictable
+ */
 public class OverAverageWithRandomZerosBidder extends OverAverageBidder {
 
     private final double zeroProbability;

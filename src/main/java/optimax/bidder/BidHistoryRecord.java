@@ -1,20 +1,8 @@
 package optimax.bidder;
 
-public class BidHistoryRecord {
+/**
+ * Bid history record created after round of auction is played
+ */
+public record BidHistoryRecord(int ownBid, int otherBid) {
 
-    private final int ownBid;
-    private final int otherBid;
-
-    public BidHistoryRecord(int ownBid, int otherBid) {
-        this.ownBid = ownBid;
-        this.otherBid = otherBid;
-    }
-
-    public int getOwnBid() {
-        return ownBid;
-    }
-
-    public int getOtherBid() {
-        return otherBid;
-    }
 }

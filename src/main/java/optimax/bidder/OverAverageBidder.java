@@ -1,5 +1,9 @@
 package optimax.bidder;
 
+/**
+ * Over average bidder
+ * places a bid equal to average opponent's bid over last {@link #historySizeForAverage} round multiplied by {@link #overBidCoef}
+ */
 public class OverAverageBidder extends AbstractBidder {
 
     protected final double overBidCoef;
@@ -17,7 +21,7 @@ public class OverAverageBidder extends AbstractBidder {
     @Override
     protected int calculateBid() {
         double otherAverage = bidHistoryRecordHistory.stream().skip(Math.max(0, bidHistoryRecordHistory.size() - historySizeForAverage))
-                .mapToInt(BidHistoryRecord::getOtherBid)
+                .mapToInt(BidHistoryRecord::otherBid)
                 .average().orElse(1);
         return (int) Math.ceil(otherAverage * overBidCoef);
     }

@@ -2,6 +2,11 @@ package optimax.bidder;
 
 import java.util.Random;
 
+/**
+ * bidding logic is similar to {@link OverAverageWithRandomZerosBidder}
+ * never makes a bid more than two times bigger than average
+ * increases bid if too many quantity units left to increase probability of win
+ */
 public class CustomBidder extends AbstractBidder {
 
     private final double overBidCoef;
@@ -25,7 +30,7 @@ public class CustomBidder extends AbstractBidder {
             return 0;
         }
         double otherAverage = bidHistoryRecordHistory.stream().skip(Math.max(0, bidHistoryRecordHistory.size() - historySizeForAverage))
-                .mapToInt(BidHistoryRecord::getOtherBid)
+                .mapToInt(BidHistoryRecord::otherBid)
                 .average().orElse(1);
         int bid = (int) Math.ceil(otherAverage * overBidCoef);
         if ((bid > averageBid() * 2) && (bid > currentAverageBid())) {
